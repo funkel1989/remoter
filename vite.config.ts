@@ -4,6 +4,7 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import electron, { onstart } from "vite-plugin-electron";
 import pkg from "./package.json";
+import { VitePluginFonts } from "vite-plugin-fonts";
 
 rmSync("dist", { recursive: true, force: true }); // v14.14.0
 
@@ -40,6 +41,13 @@ export default defineConfig({
       // Enables use of Node.js API in the Renderer-process
       // https://github.com/electron-vite/vite-plugin-electron/tree/main/packages/electron-renderer#electron-renderervite-serve
       renderer: {},
+    }),
+    VitePluginFonts({
+      google: {
+        families: [
+          "Source Sans Pro"
+        ],
+      },
     }),
   ],
   server: process.env.VSCODE_DEBUG

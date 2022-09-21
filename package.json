@@ -1,9 +1,9 @@
 {
-  "name": "electron-vue-vite",
+  "name": "remoter",
   "version": "2.0.0",
   "main": "dist/electron/main/index.js",
-  "description": "Really simple Electron + Vue + Vite boilerplate.",
-  "author": "草鞋没号 <308487730@qq.com>",
+  "description": "Electron + Vue + Vite app.",
+  "author": "Michael Cavanaugh",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -14,14 +14,25 @@
     "node": "^14.18.0 || >=16.0.0"
   },
   "devDependencies": {
+    "@mdi/font": "5.9.55",
+    "@types/webfontloader": "^1.6.34",
     "@vitejs/plugin-vue": "^3.0.1",
     "electron": "^20.0.2",
+    "electron-better-ipc": "^2.0.1",
     "electron-builder": "^23.3.3",
+    "electron-debug": "^3.2.0",
+    "electron-store": "^8.1.0",
+    "electron-util": "^0.17.2",
+    "pinia": "^2.0.22",
+    "roboto-fontface": "*",
     "typescript": "^4.7.4",
     "vite": "^3.0.8",
     "vite-plugin-electron": "^0.9.3",
+    "vite-plugin-fonts": "^0.6.0",
     "vue": "^3.2.37",
-    "vue-tsc": "^0.40.1"
+    "vue-router": "4",
+    "vue-tsc": "^0.40.1",
+    "vuetify": "^3.0.0-beta.11"
   },
   "debug": {
     "env": {
