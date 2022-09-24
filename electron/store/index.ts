@@ -41,6 +41,9 @@ const schema: Schema<IStore> = {
       userName: {
         type: "string",
       },
+      dataDirectory: {
+        type: "string",
+      },
     },
   },
 };
@@ -57,15 +60,15 @@ function updateThemeSetting(store: Store<IStore>): void {
     store.set("theme", "system");
   }
 
-  if (typeof darkMode !== 'undefined') {
+  if (typeof darkMode !== "undefined") {
     // @ts-expect-error
-    store.delete('darkMode');
-}
+    store.delete("darkMode");
+  }
 
-if (typeof followSystemAppearance !== 'undefined') {
+  if (typeof followSystemAppearance !== "undefined") {
     // @ts-expect-error
-    store.delete('followSystemAppearance');
-}
+    store.delete("followSystemAppearance");
+  }
 }
 
 function migrate(store: Store<IStore>): void {

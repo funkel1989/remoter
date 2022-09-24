@@ -1,5 +1,7 @@
+import { IUserSettings } from '../../interfaces';
 import { createRouter, createWebHashHistory } from "vue-router";
 import { useUserSettingsStore } from "../stores/UserSettings";
+import { ipcRenderer } from 'electron-better-ipc';
 
 import Home from "../views/Home.vue";
 import UserSettingsSetup from "../views/UserSettingsSetup.vue";
@@ -22,13 +24,21 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, from) => {
+router.beforeEach(async (to, from) => {
+  if (to.name === "UserSettingsSetup") {
+    return true;
+  }
+
   const userSettingsStore = useUserSettingsStore();
 
-  if (!userSettingsStore.settings || !userSettingsStore.settings.userName) {
-    if (to.name !== 'UserSettingsSetup') {
+  if (!userSettingsStore.settings || userSettingsStore.settings.userName) {
+    const icpUserSettings: IUserSettings = await ipcRenderer.callMain('get-config', 'userSettings');
+
+    if (!icpUserSettings || !icpUserSettings.userName) {
       return { name: 'UserSettingsSetup'};
     }
+
+    userSettingsStore.setSettings(icpUserSettings);
   }
 
   return true;

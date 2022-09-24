@@ -19,7 +19,11 @@ import { release } from "os";
 import { join } from "path";
 import config from "../store";
 import debug from "electron-debug";
-import betterIcp from "electron-better-ipc";
+import { ipcMain as betterIpcMain } from "electron-better-ipc";
+
+import { ISetStoreData } from '../../interfaces';
+
+betterIpcMain.setMaxListeners(100);
 
 // Disable GPU Acceleration for Windows 7
 if (release().startsWith("6.1")) app.disableHardwareAcceleration();
@@ -48,9 +52,13 @@ debug({
   showDevTools: false,
 });
 
-betterIcp.ipcMain.answerRenderer('get-config', async (configItem: string) => {
-  return config.get(configItem);
-})
+betterIpcMain.answerRenderer("get-config", async (configName: string) => {
+  return config.get(configName);
+});
+
+betterIpcMain.answerRenderer("set-config", async (saveConfigObject: ISetStoreData) => {
+  config.set(saveConfigObject.configName, saveConfigObject.jsonSerializedData);
+});
 
 async function createWindow() {
   const lastWindowState = config.get("lastWindowState");
