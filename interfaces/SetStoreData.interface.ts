@@ -1,4 +1,4 @@
-export interface ISetStoreData {
+export interface ISetStoreData<T> {
     configName: string;
-    jsonSerializedData: string;
+    data: T;
 }

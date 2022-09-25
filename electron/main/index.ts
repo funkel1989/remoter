@@ -56,7 +56,7 @@ betterIpcMain.answerRenderer("get-config", async (configName: string) => {
   return config.get(configName);
 });
 
-betterIpcMain.answerRenderer("set-config", async (saveConfigObject: ISetStoreData) => {
+betterIpcMain.answerRenderer("set-userData", async (saveConfigObject: ISetStoreData) => {
   config.set(saveConfigObject.configName, saveConfigObject.jsonSerializedData);
 });
 
