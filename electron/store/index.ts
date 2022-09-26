@@ -1,5 +1,5 @@
-import { IStore } from "../../interfaces";
-import Store, { Schema } from "electron-store";
+import type { IStore } from "../../interfaces/Store.interface";
+import Store, {type  Schema } from "electron-store";
 import { is } from "electron-util";
 
 const schema: Schema<IStore> = {

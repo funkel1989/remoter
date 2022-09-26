@@ -1,4 +1,6 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig.json",
+  "extends": "@vue/tsconfig/tsconfig.web.json",
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
@@ -14,6 +16,6 @@
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true
   },
-  "include": ["src", "interfaces"],
+  "include": ["./"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

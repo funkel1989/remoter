@@ -1,10 +1,9 @@
-import { defineStore } from "pinia";
-import { ref } from "vue";
+import { defineStore } from 'pinia';
+import { ref } from 'vue';
 import { ipcRenderer } from 'electron-better-ipc';
+import type { IUserSettings } from '../../interfaces/UserSettings.interface';
 
-import { IUserSettings } from "../../interfaces";
-
-export const useUserSettingsStore = defineStore("userSettings", () => {
+export const useUserSettingsStore = defineStore('userSettings', () => {
   const settings = ref<IUserSettings>();
 
   const setSettings = async (incomingSettings: IUserSettings) => {

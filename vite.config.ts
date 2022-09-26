@@ -1,25 +1,27 @@
-import { rmSync } from "fs";
-import path from "path";
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import electron, { onstart } from "vite-plugin-electron";
-import pkg from "./package.json";
-import { VitePluginFonts } from "vite-plugin-fonts";
+import { rmSync } from 'fs';
+import path from 'path';
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import electron, { onstart } from 'vite-plugin-electron';
+import vuetify from 'vite-plugin-vuetify';
+import pkg from './package.json';
 
-rmSync("dist", { recursive: true, force: true }); // v14.14.0
+rmSync('dist', { recursive: true, force: true }); // v14.14.0
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // transpileDependencies: ["vuetify"],
+
   plugins: [
     vue(),
     electron({
       main: {
-        entry: "electron/main/index.ts",
+        entry: 'electron/main/index.ts',
         vite: {
           build: {
             // For Debug
             sourcemap: true,
-            outDir: "dist/electron/main",
+            outDir: 'dist/electron/main',
           },
           // Will start Electron via VSCode Debug
           plugins: [process.env.VSCODE_DEBUG ? onstart() : null],
@@ -28,13 +30,13 @@ export default defineConfig({
       preload: {
         input: {
           // You can configure multiple preload here
-          index: path.join(__dirname, "electron/preload/index.ts"),
+          index: path.join(__dirname, 'electron/preload/index.ts'),
         },
         vite: {
           build: {
             // For Debug
-            sourcemap: "inline",
-            outDir: "dist/electron/preload",
+            sourcemap: 'inline',
+            outDir: 'dist/electron/preload',
           },
         },
       },
@@ -42,12 +44,11 @@ export default defineConfig({
       // https://github.com/electron-vite/vite-plugin-electron/tree/main/packages/electron-renderer#electron-renderervite-serve
       renderer: {},
     }),
-    VitePluginFonts({
-      google: {
-        families: [
-          "Source Sans Pro"
-        ],
-      },
+    // Vuetify Loader
+    // https://github.com/vuetifyjs/vuetify-loader
+    vuetify({
+      autoImport: true,
+      styles: 'expose',
     }),
   ],
   server: process.env.VSCODE_DEBUG
