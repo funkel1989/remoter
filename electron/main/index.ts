@@ -9,6 +9,7 @@ import { join } from 'path';
 import config from '../store';
 import debug from 'electron-debug';
 import { ipcMain as betterIpcMain } from 'electron-better-ipc';
+import { promise as promisePing } from 'ping';
 
 import type { ISetStoreData } from '../../interfaces/SetStoreData.interface';
 import type { IUserSettings } from '../../interfaces/UserSettings.interface';
@@ -111,6 +112,12 @@ betterIpcMain.answerRenderer('clear-userSettings', async () => {
   await deletePassword('RonaTools', userSettings.userName);
   config.set('userSettings', {});
 });
+
+betterIpcMain.answerRenderer('begin-ping', async () => {
+  // https://www.kindacode.com/article/node-js-how-to-ping-a-remote-server-website/
+  // https://medium.com/p/e0dc310a93cc
+  // https://www.npmjs.com/package/ping
+})
 
 async function createWindow() {
   const lastWindowState = config.get('lastWindowState');
