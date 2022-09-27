@@ -1,5 +1,5 @@
 {
-  "name": "remoter",
+  "name": "rona-tools",
   "version": "1.0.0",
   "main": "dist/electron/main/index.js",
   "description": "Electron + Vue + Vite app.",

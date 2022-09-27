@@ -13,7 +13,7 @@ import { ipcMain as betterIpcMain } from 'electron-better-ipc';
 import type { ISetStoreData } from '../../interfaces/SetStoreData.interface';
 import type { IUserSettings } from '../../interfaces/UserSettings.interface';
 
-import { setPassword } from 'keytar';
+import { setPassword, deletePassword } from 'keytar';
 
 betterIpcMain.setMaxListeners(100);
 
@@ -95,7 +95,7 @@ betterIpcMain.answerRenderer(
 
     if (parsedData.data.password) {
       await setPassword(
-        'remoter',
+        'RonaTools',
         parsedData.data.userName,
         parsedData.data.password
       );
@@ -105,6 +105,12 @@ betterIpcMain.answerRenderer(
     }
   }
 );
+
+betterIpcMain.answerRenderer('clear-userSettings', async () => {
+  const userSettings = config.get('userSettings');
+  await deletePassword('RonaTools', userSettings.userName);
+  config.set('userSettings', {});
+});
 
 async function createWindow() {
   const lastWindowState = config.get('lastWindowState');

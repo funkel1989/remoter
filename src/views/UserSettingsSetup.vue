@@ -2,7 +2,7 @@
 import type { IUserSettings } from '../../interfaces/UserSettings.interface';
 import type { ISetStoreData } from '../../interfaces/SetStoreData.interface';
 // import type { IFileData } from '../../interfaces/FilePathData.interface.ts';
-import { reactive, ref, computed } from 'vue';
+import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { ipcRenderer } from 'electron-better-ipc';
 
@@ -69,7 +69,7 @@ async function submitUserData() {
 </script>
 
 <template>
-  <h1>Application Setup</h1>
+  <h1>Setup</h1>
 
   <v-text-field
     label="Admin Username"
@@ -81,6 +81,7 @@ async function submitUserData() {
   <v-text-field
     label="Admin Password"
     required
+    type="password"
     name="adminpassword"
     v-model="form.password"
   ></v-text-field>

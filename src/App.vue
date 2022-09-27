@@ -8,6 +8,8 @@ import {
   type Ref,
 } from 'vue';
 import { useTheme } from 'vuetify/lib/framework.mjs';
+import { ipcRenderer } from 'electron-better-ipc';
+import { useRouter, useRoute } from 'vue-router';
 
 // Stores
 import GlobalStore from './stores/GlobalStore';
@@ -20,6 +22,9 @@ import logo from './assets/electron.svg';
 
 /** Vuetify Theme */
 const theme = useTheme();
+
+const router = useRouter();
+const route = useRoute();
 
 /** Global Store */
 const globalStore = GlobalStore();
@@ -55,6 +60,11 @@ const isDark: ComputedRef<string> = computed(() =>
 const themeColor: ComputedRef<string> = computed(
   () => theme.computedThemes.value[isDark.value].colors.primary
 );
+
+const clearUserSettings = async () => {
+  await ipcRenderer.callMain('clear-userSettings');
+  router.push({ name: 'UserSettingsSetup' });
+};
 
 // When snackbar text has been set, show snackbar.
 watch(
@@ -117,6 +127,8 @@ onMounted(() => {
     </v-snackbar>
     <v-footer app elevation="1">
       <span class="mr-5">2022 &copy;</span>
+      <v-spacer />
+      <v-btn @click="clearUserSettings()" :disabled="route.path === '/setup'">Clear Settings</v-btn>
     </v-footer>
   </v-app>
   <teleport to="head">
